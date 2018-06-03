@@ -4,7 +4,7 @@ class Dialog {
         if(port == null){ this._port = 3000; }else{ this._port = port; }
         if(url == null){ this._url = "/" }else{ if(url.charAt(0) !== "/"){ this._url = "/"+url; }else{ this._url = url; } }
 
-        this._app = require("express");
+        this._app = require("express")();
         this._bodyParser = require("body-parser");
         this._app.use(this._bodyParser.urlencoded({ extended: false }));
         this._app.use(this._bodyParser.json());
