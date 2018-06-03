@@ -1,9 +1,9 @@
 class Dialog {
-    constructor(port, url){
+    constructor(port, url, default_response){
         this._binds = {command: {}, original: {}};
         if(port == null){ this._port = 3000; }else{ this._port = port; }
         if(url == null){ this._url = "/" }else{ if(url.charAt(0) !== "/"){ this._url = "/"+url; }else{ this._url = url; } }
-
+        if(default_response == null){ this._default_response = "К сожалению, я вас не понимаю"; }
         this._app = require("express")();
         this._bodyParser = require("body-parser");
         this._app.use(this._bodyParser.urlencoded({ extended: false }));
@@ -24,9 +24,11 @@ class Dialog {
             };
             let postParams = req.body;
             let responseParams = {session: postParams.session, version: postParams.version};
-            if(this._binds.original === postParams.request["original_utterance"]){ this._binds.original[postParams.request["original_utterance"]](postParams, new Response(responseParams, res.send)) }else{
-                if(this._binds.command === postParams.request["command"]){ this._binds.command[postParams.request["command"]](postParams, new Response(responseParams, res.send)) }else{
-                    if(postParams.request.command === "test" && postParams.request.original_utterance === "test"){ res.send({session: postParams.session, version: postParams.version, response: {text: "test"}}) };
+            if(this._binds.original[postParams.request["original_utterance"]] != null ){ this._binds.original[postParams.request["original_utterance"]](postParams, new Response(responseParams, res.send)) }else{
+                if(this._binds.command[postParams.request["command"]] != null){ this._binds.command[postParams.request["command"]](postParams, new Response(responseParams, res.send)) }else{
+                    if(postParams.request.command === "test" && postParams.request.original_utterance === "test"){ res.send({session: postParams.session, version: postParams.version, response: {text: "test"}}) }else{
+                        res.send({session: postParams.session, version: postParams.version, response: {text: this._default_response}})
+                    }
                 }
             }
         });
