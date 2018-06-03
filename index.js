@@ -26,7 +26,7 @@ class Dialog {
             let responseParams = {session: postParams.session, version: postParams.version};
             if(this._binds.original === postParams.request["original_utterance"]){ this._binds.original[postParams.request["original_utterance"]](postParams, new Response(responseParams, res.send)) }else{
                 if(this._binds.command === postParams.request["command"]){ this._binds.command[postParams.request["command"]](postParams, new Response(responseParams, res.send)) }else{
-                    if(postParams.request.command === "test" && postParams.request.original_utterance === "test"){ res.send({session: postParams.request.session, version: postParams.request.version, response: {text: "test"}}) };
+                    if(postParams.request.command === "test" && postParams.request.original_utterance === "test"){ res.send({session: postParams.session, version: postParams.version, response: {text: "test"}}) };
                 }
             }
         });
