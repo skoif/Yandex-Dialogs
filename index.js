@@ -9,7 +9,27 @@ class Dialog {
         this._app.use(this._bodyParser.urlencoded({ extended: false }));
         this._app.use(this._bodyParser.json());
 
-        this._app.post(this._url, this._postHandler);
+        this._app.post(this._url, (req,res)=>{
+            let Response = (params, sender)=>{
+                this._params = params;
+                this._sender = sender;
+                this.send = (text, tts, buttons, end_session)=>{
+                    let params = this._params;
+                    params["text"] = text;
+                    params["tts"] = tts;
+                    params["buttons"] = buttons;
+                    if(end_session == null){ params["end_session"] = false; }else{ params["end_session"] = end_session; }
+                    this._sender(params);
+                }
+            };
+            let postParams = req.body;
+            let responseParams = {session: postParams.request.session, version: postParams.request.version};
+            if(this._binds.original === postParams.request["original_utterance"]){ this._binds.original[postParams.request["original_utterance"]](postParams, new Response(responseParams, res.send)) }else{
+                if(this._binds.command === postParams.request["command"]){ this._binds.command[postParams.request["command"]](postParams, new Response(responseParams, res.send)) }else{
+                    if(postParams.request.command === "test" && postParams.request.original_utterance === "test"){ res.send({session: postParams.request.session, version: postParams.request.version, response: {text: "test"}}) };
+                }
+            }
+        });
         this._app.listen(this._port);
     }
     bind(text, callback){
