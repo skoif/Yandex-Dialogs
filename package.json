@@ -1,0 +1,33 @@
+{
+  "name": "yandex-dialogs",
+  "version": "0.1.0",
+  "description": "Node.JS SDK for yandex dialogs built with Express.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skoif/Yandex-Dialogs.git"
+  },
+  "keywords": [
+    "Yandex",
+    "yandex",
+    "alice",
+    "yandex",
+    "alisa",
+    "yandex",
+    "dialogs",
+    "yandex",
+    "dialogi"
+  ],
+  "author": "Alexander Zemskov",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/skoif/Yandex-Dialogs/issues"
+  },
+  "homepage": "https://github.com/skoif/Yandex-Dialogs#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
