@@ -33,7 +33,7 @@ This function binds event for original_utterance
 ```
 dialog.bindOriginal([original_utterance (or array)], [callback]);
 ```
-# Bind's callbacks
+## Bind's callbacks
 ```
 ([Request data],[Response object])=>{
     res.send([text], [tss], [buttons], [end_session]);
