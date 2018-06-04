@@ -1,12 +1,15 @@
+[![npm version](https://badge.fury.io/js/yandex-dialogs.svg)](https://badge.fury.io/js/yandex-dialogs)
 # Yandex Dialogs SDK [BETA]
 This is something like express, but for Yandex Dialogs.
 This is community library, not official.
 ## Installation
+Install from NPM
+```
+npm install yandex-dialogs
+```
+Install from GIT
 ```
 npm install https://github.com/skoif/Yandex-Dialogs
-```
-```
-Coming soon to npm
 ```
 ## Usage
 ```javascript
@@ -26,7 +29,7 @@ Default response - response to send if no binds found, default: К сожале�
 ## Bind
 This function binds event for command
 ```
-dialog.bind([command (or array of command)], [callback]);
+dialog.bind([command (or array of commands)], [callback]);
 ```
 ## BindOriginal
 This function binds event for original_utterance
@@ -43,5 +46,5 @@ Check official docs at https://tech.yandex.ru/dialogs/alice/doc/protocol-docpage
 # Disclaimer
 This is not official Yandex's library.
 <br><br><br>
-Lib version: 0.2.0
-Readme for version: 0.2.0
+Lib version: 0.2.1
+Readme for version: 0.2.1
