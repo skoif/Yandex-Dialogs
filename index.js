@@ -1,9 +1,21 @@
 class Dialog {
-    constructor(port, url, default_response){
+    constructor(object, fallback1, fallback2){
         this._binds = {command: {}, original: {}};
-        if(port == null){ this._port = 3000; }else{ this._port = port; }
-        if(url == null){ this._url = "/" }else{ if(url.charAt(0) !== "/"){ this._url = "/"+url; }else{ this._url = url; } }
-        if(default_response == null){ this._default_response = "К сожалению, я вас не понимаю"; }
+        if(typeof object === "number" || typeof object === "string"){
+            this._port = object;
+            if(fallback1 == null){ this._url = "/" }else{ if(fallback1.charAt(0) !== "/"){ this._url = "/"+fallback1; }else{ this._url = fallback1; } }
+            if(fallback2 == null){ this._default_response = "К сожалению, я вас не понимаю"; }else{ this._default_response = fallback2; }
+        }else{
+            if(typeof object === "object"){
+                if(object.port == null){ this._port = 3000; }else{ this._port = object.port; }
+                if(object.url == null){ this._url = "/"; }else{ if(object.url.charAt(0) !== "/"){ this._url = "/"+object.url; }else{ this._url = object.url; } }
+                if(object.default_response == null){ this._default_response = "К сожалению, я вас не понимаю"; }else{ this._default_response = object.default_response; }
+            }else{
+                this._port = 3000;
+                this._url = "/";
+                this._default_response = "К сожалению, я вас не понимаю";
+            }
+        }
         this._app = require("express")();
         this._bodyParser = require("body-parser");
         this._app.use(this._bodyParser.urlencoded({ extended: false }));

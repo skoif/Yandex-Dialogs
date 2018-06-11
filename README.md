@@ -14,14 +14,14 @@ npm install https://github.com/skoif/Yandex-Dialogs
 ## Usage
 ```javascript
 const Dialog = require("yandex-dialogs");
-const dialog = new Dialog(3000, "/alice");
+const dialog = new Dialog({port: 3000, url: "/alice", default_response: "Я вас не понимаю"});
 dialog.bind("Привет", (req,res)=>{
     res.send("Приветствую!");
 });
 ```
 ## Dialog constructor parameters
 ```
-new Dialog([port], [url], [default response]);
+new Dialog({[port], [url], [default_response]});
 ```
 Port - web port, default: 3000\
 Url - app's url, default: /\
@@ -46,5 +46,5 @@ Check official docs at https://tech.yandex.ru/dialogs/alice/doc/protocol-docpage
 # Disclaimer
 This is not official Yandex's library.
 <br><br><br>
-Lib version: 0.2.1
-Readme for version: 0.2.1
+Lib version: 0.3.0
+Readme for version: 0.3.0
